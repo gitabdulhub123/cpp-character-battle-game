@@ -1,6 +1,5 @@
 
-#include "customlist.h"
-
+#include "monsterlist.h"
 monsterList::monsterList() {
     head = NULL;
     curr = NULL;
@@ -8,8 +7,8 @@ monsterList::monsterList() {
     list_size = 0;
 }
 
-void monsterList::add(Monster* monster){
-    NodePtr n = new Node;
+void monsterList::add(Enemy* monster){
+    monster_node_ptr n = new monster_node;
     n->next = NULL;
     n->monster = monster;
     n->round=0;
@@ -26,7 +25,7 @@ void monsterList::add(Monster* monster){
     list_size++;
 }
 
-Monster* monsterList::at(int index){
+Enemy* monsterList::at(int index){
     curr = head;
     for (int i=0;i<index;i++) {
         curr = curr->next;
@@ -34,12 +33,12 @@ Monster* monsterList::at(int index){
     return curr->monster;
 }
 
-void monsterList::subdue(int index, int effective_for){
+void monsterList::subdue(int index, int effective_for) {
     curr = head;
-    for (int i=0;i<index;i++) {
+    for (int i = 0; i < index; i++) {
         curr = curr->next;
     }
-    if ((curr->round==0)&&(effective_for!=0)) curr->round=effective_for; //how many rounds the effectiveness of the spell will last
+    if ((curr->round == 0) && (effective_for != 0)) curr->round = effective_for; //how many rounds the effectiveness of the spell will last
 }
 
 void monsterList::checkEnchantments() {
@@ -52,7 +51,7 @@ void monsterList::checkEnchantments() {
 }
 
 void monsterList::vanish(int index) {
-    NodePtr delPtr = NULL;
+    monster_node_ptr delPtr = NULL;
     temp = head;
     for (int i=0;i<index;i++) {
         delPtr=temp;
